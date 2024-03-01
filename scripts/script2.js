@@ -10,7 +10,7 @@ menuListDiv.appendChild(button);
 
 
 let imageElement = document.createElement("img");
-imageElement.src = "C:/Users/magnu/git/movierec/magnusew.github.io/img/naughty.jpg";
+imageElement.src = "https://media.tenor.com/olTVP9rBLuoAAAAM/you-naughty-naughty-pointing.gif";
 
 let imgContainer = document.getElementById("imageContainer");
 
@@ -21,7 +21,7 @@ button.addEventListener('click', function(event){
     newButton.innerText = " Button # " + counter;
     newButton.className = "spamButton";
     menuListDiv.appendChild(newButton);
-    if(counter === 4)
+    if(counter === 69)
     {    
         imgContainer.appendChild(imageElement);
     }
