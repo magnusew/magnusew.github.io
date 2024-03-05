@@ -18,6 +18,11 @@ function mouseOverByClass(thisClass)
     thisClass[i].addEventListener('mouseout', function(event){
     thisClass[i].style.backgroundColor = "white";
 });
-       
+
 }
 }
+
+buttons[1].addEventListener('click', function (event){
+
+    
+})
