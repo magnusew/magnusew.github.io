@@ -37,15 +37,20 @@ tr:hover {
     table {
         width: 100%;
     }
+    tr {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        border: 1px solid #ccc; /* Add borders to rows for better separation */
+    }
+    td {
+        width: 48%; /* Adjust width to leave some space between items */
+    }
     th, td {
         display: block;
         text-align: left;
         padding: 8px;
-    }
-    tr {
-        display: block;
-        margin-bottom: 10px;
-        border: 1px solid #ccc; /* Add borders to rows for better separation */
     }
     tr:nth-child(even) {
         background-color: #f2f2f2;
