@@ -30,13 +30,27 @@ lauraBtn.addEventListener('click', function(){
     window.location.href = urls[lauraRotation];
 });
 
+lauraBtn.addEventListener('touchstart', function(){
+    window.location.href = urls[lauraRotation];
+});
+
 magnusBtn.addEventListener('click', function(){
     window.location.href = urls[magnusRotation];
 });
 
+magnusBtn.addEventListener('touchstart', function(){
+    window.location.href = urls[magnusRotation];
+});
+
+
 ajaBtn.addEventListener('click', function(){
     window.location.href = urls[ajaRotation];
 });
+
+ajaBtn.addEventListener('touchstart', function(){
+    window.location.href = urls[ajaRotation];
+});
+
 
 
 // Function to calculate ISO week number
