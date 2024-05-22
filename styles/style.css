@@ -4,6 +4,7 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
     font-family: Arial, sans-serif;
+    
 }
 
 /* Table Header */
@@ -30,6 +31,7 @@ tr:nth-child(even) {
 /* Hover Effect */
 tr:hover {
     background-color: #f2f2f2;
+    cursor: pointer;
 }
 
 /* Responsive Table */
@@ -44,13 +46,11 @@ tr:hover {
         margin-bottom: 10px;
         border: 1px solid #ccc; /* Add borders to rows for better separation */
     }
-    td {
-        width: 48%; /* Adjust width to leave some space between items */
-    }
     th, td {
         display: block;
         text-align: left;
         padding: 8px;
+        width: 50%; /* Adjust width to ensure equal width for th and td */
     }
     tr:nth-child(even) {
         background-color: #f2f2f2;
