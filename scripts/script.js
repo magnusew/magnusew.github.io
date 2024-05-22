@@ -1,28 +1,6 @@
-let buttons = document.body.getElementsByClassName("b1")
-// Set initial background color
-
-mouseOverByClass(buttons);
+const whoCleanBtn = document.querySelector("#cleaning");
 
 
-function mouseOverByClass(thisClass) 
-
-{
-    for(let i = 0; i < thisClass.length; i++)
-{
-    // Add event listener for mouseover
-    thisClass[i].addEventListener('mouseover', function(event){
-    thisClass[i].style.backgroundColor = "grey";
+whoCleanBtn.addEventListener('click', function(){
+    window.location.href = './whocleanwhat.html';
 });
-
-    // Add event listener for mouseout
-    thisClass[i].addEventListener('mouseout', function(event){
-    thisClass[i].style.backgroundColor = "white";
-});
-
-}
-}
-
-buttons[1].addEventListener('click', function (event){
-
-    
-})

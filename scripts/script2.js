@@ -1,41 +1,31 @@
+const lauraRoom = document.querySelector("#lauraRoom");
+const magnusRoom = document.querySelector("#magnusRoom");
+const ajaRoom = document.querySelector("#ajaRoom");
 
-let menuListDiv = document.getElementById("menuList");
-let counter = 1;
+const kitchen = "Køkkenet";
+const toilet = "Toilettet";
+const livingRoom = "Stuen";
 
-let button = document.createElement("button");
-button.innerText = " NOPE # " + counter;
-button.setAttribute("id", 'randomButton');
-button.className= "spamButton";
+const messages= [kitchen,toilet, livingRoom];
 
-menuListDiv.appendChild(button);
+const currentWeek = getWeekNumber(new Date());
 
+const rotation = (currentWeek - 1) % 3; 
+const lauraRotation = rotation;
+const magnusRotation = (rotation + 1) % 3;
+const ajaRotation = (rotation + 2) % 3;
 
-button.addEventListener('mouseover', function()
-{
-    var randomX = Math.random() * (window.innerWidth - button.offsetWidth);
-    var randomY = Math.random() * (window.innerHeight - button.offsetHeight);
-
-    // Set button's new position
-    button.style.position = 'absolute';
-    button.style.left = randomX + "px";
-    button.style.top = randomY + "px";
-    counter++;
-    button.innerText = " NOPE # " + counter;
-    
-    if(counter % 3 === 0)
-    {
-        let imageElement = document.createElement("img");
-        imageElement.src = "https://media.tenor.com/olTVP9rBLuoAAAAM/you-naughty-naughty-pointing.gif";
-        let imgContainer = document.getElementById("imageContainer");
-        imgContainer.append(imageElement);
-    }
-    
-})
+lauraRoom.textContent = messages[lauraRotation];
+magnusRoom.textContent = messages[magnusRotation];
+ajaRoom.textContent = messages[ajaRotation];
 
 
-
-
-
-
-
+// Function to calculate ISO week number
+function getWeekNumber(date) {
+    const currentDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+    currentDate.setUTCDate(currentDate.getUTCDate() + 4 - (currentDate.getUTCDay() || 7));
+    const yearStart = new Date(Date.UTC(currentDate.getUTCFullYear(), 0, 1));
+    const weekNumber = Math.ceil((((currentDate - yearStart) / 86400000) + 1) / 7);
+    return weekNumber;
+}
 
