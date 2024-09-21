@@ -5,17 +5,25 @@ const lauraBtn = document.querySelector("#lauraBtn");
 const magnusBtn = document.querySelector("#magnusBtn");
 const ajaBtn = document.querySelector("#ajaBtn");
 
+// Find the element to display the week range
+const weekRangeElement = document.querySelector("#weekRange");
 
 const kitchen = "Køkkenet";
 const toilet = "Toilettet";
 const livingRoom = "Stuen";
 
-const messages = [kitchen,toilet, livingRoom];
+const messages = [kitchen, toilet, livingRoom];
 const urls = ['./kitchen.html', './toilet.html', './living_room.html'];
 
-const currentWeek = getWeekNumber(new Date());
+// Get the current week's Sunday and Saturday
+const { startOfWeek, endOfWeek } = getCurrentWeekRange(new Date());
 
-const rotation = (currentWeek - 1) % 3; 
+// Display the current week date range in the header
+weekRangeElement.textContent = `${formatDate(startOfWeek)} - ${formatDate(endOfWeek)}`;
+
+// Determine rotation for Laura, Magnus, and Aja
+const currentWeek = getSundayBasedWeekNumber(startOfWeek);  // Use the start of the week for week number logic
+const rotation = (currentWeek - 1) % 3;
 const lauraRotation = rotation;
 const magnusRotation = (rotation + 1) % 3;
 const ajaRotation = (rotation + 2) % 3;
@@ -25,40 +33,66 @@ lauraRoom.textContent = messages[lauraRotation];
 magnusRoom.textContent = messages[magnusRotation];
 ajaRoom.textContent = messages[ajaRotation];
 
-
-lauraBtn.addEventListener('click', function(){
+lauraBtn.addEventListener('click', function () {
     window.location.href = urls[lauraRotation];
 });
 
-lauraBtn.addEventListener('touchstart', function(){
+lauraBtn.addEventListener('touchstart', function () {
     window.location.href = urls[lauraRotation];
 });
 
-magnusBtn.addEventListener('click', function(){
+magnusBtn.addEventListener('click', function () {
     window.location.href = urls[magnusRotation];
 });
 
-magnusBtn.addEventListener('touchstart', function(){
+magnusBtn.addEventListener('touchstart', function () {
     window.location.href = urls[magnusRotation];
 });
 
-
-ajaBtn.addEventListener('click', function(){
+ajaBtn.addEventListener('click', function () {
     window.location.href = urls[ajaRotation];
 });
 
-ajaBtn.addEventListener('touchstart', function(){
+ajaBtn.addEventListener('touchstart', function () {
     window.location.href = urls[ajaRotation];
 });
 
+// Function to calculate the current week's Sunday (start) and Saturday (end)
+function getCurrentWeekRange(date) {
+    const currentDate = new Date(date);
 
+    // Calculate the start of the week (Sunday)
+    const dayOfWeek = currentDate.getDay(); // Sunday is 0, Monday is 1, ..., Saturday is 6
+    const diffToSunday = dayOfWeek; // Difference to Sunday (0)
+    const startOfWeek = new Date(currentDate.setDate(currentDate.getDate() - diffToSunday));
+    
+    // Calculate the end of the week (Saturday)
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(startOfWeek.getDate() + 6);
 
-// Function to calculate ISO week number
-function getWeekNumber(date) {
-    const currentDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-    currentDate.setUTCDate(currentDate.getUTCDate() + 4 - (currentDate.getUTCDay() || 7));
-    const yearStart = new Date(Date.UTC(currentDate.getUTCFullYear(), 0, 1));
-    const weekNumber = Math.ceil((((currentDate - yearStart) / 86400000) + 1) / 7);
-    return weekNumber;
+    return { startOfWeek, endOfWeek };
 }
 
+// Helper function to format the date as 'DD/MM/YYYY' (or change format as desired)
+function formatDate(date) {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+}
+
+// Function to calculate the week number starting from Sunday
+function getSundayBasedWeekNumber(date) {
+    const currentDate = new Date(date);
+    
+    // Adjust to Sunday being the last day of the week
+    const day = currentDate.getDay(); // Sunday is 0, Monday is 1, and so on
+    const diffToSunday = (day === 0) ? 0 : 7 - day;
+    
+    currentDate.setDate(currentDate.getDate() + diffToSunday);
+    
+    const yearStart = new Date(Date.UTC(currentDate.getFullYear(), 0, 1));
+    const weekNumber = Math.ceil((((currentDate - yearStart) / 86400000) + 1) / 7);
+    
+    return weekNumber;
+}
