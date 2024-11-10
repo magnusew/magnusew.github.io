@@ -15,14 +15,14 @@ const livingRoom = "Stuen";
 const messages = [kitchen, toilet, livingRoom];
 const urls = ['./kitchen.html', './toilet.html', './living_room.html'];
 
-// Get the current week's Sunday and Saturday
+// Get the current week's Friday and Thursday
 const { startOfWeek, endOfWeek } = getCurrentWeekRange(new Date());
 
 // Display the current week date range in the header
 weekRangeElement.textContent = `${formatDate(startOfWeek)} - ${formatDate(endOfWeek)}`;
 
 // Determine rotation for Laura, Magnus, and Aja
-const currentWeek = getSundayBasedWeekNumber(startOfWeek);  // Use the start of the week for week number logic
+const currentWeek = getFridayBasedWeekNumber(startOfWeek);  // Use the start of the week for week number logic
 const rotation = (currentWeek - 1) % 3;
 const lauraRotation = rotation;
 const magnusRotation = (rotation + 1) % 3;
@@ -57,16 +57,16 @@ ajaBtn.addEventListener('touchstart', function () {
     window.location.href = urls[ajaRotation];
 });
 
-// Function to calculate the current week's Sunday (start) and Saturday (end)
+// Function to calculate the current week's Friday (start) and Thursday (end)
 function getCurrentWeekRange(date) {
     const currentDate = new Date(date);
 
-    // Calculate the start of the week (Sunday)
+    // Calculate the start of the week (Friday)
     const dayOfWeek = currentDate.getDay(); // Sunday is 0, Monday is 1, ..., Saturday is 6
-    const diffToSunday = dayOfWeek; // Difference to Sunday (0)
-    const startOfWeek = new Date(currentDate.setDate(currentDate.getDate() - diffToSunday));
-    
-    // Calculate the end of the week (Saturday)
+    const diffToFriday = (dayOfWeek + 2) % 7; // Calculate days to the previous Friday
+    const startOfWeek = new Date(currentDate.setDate(currentDate.getDate() - diffToFriday));
+
+    // Calculate the end of the week (Thursday)
     const endOfWeek = new Date(startOfWeek);
     endOfWeek.setDate(startOfWeek.getDate() + 6);
 
@@ -81,16 +81,16 @@ function formatDate(date) {
     return `${day}/${month}/${year}`;
 }
 
-// Function to calculate the week number starting from Sunday
-function getSundayBasedWeekNumber(date) {
+// Function to calculate the week number starting from Friday
+function getFridayBasedWeekNumber(date) {
     const currentDate = new Date(date);
     
-    // Adjust to Sunday being the last day of the week
+    // Adjust to Friday being the first day of the week
     const day = currentDate.getDay(); // Sunday is 0, Monday is 1, and so on
-    const diffToSunday = (day === 0) ? 0 : 7 - day;
+    const diffToFriday = (day + 2) % 7; // Days to previous Friday
     
-    currentDate.setDate(currentDate.getDate() + diffToSunday);
-    
+    currentDate.setDate(currentDate.getDate() - diffToFriday);
+
     const yearStart = new Date(Date.UTC(currentDate.getFullYear(), 0, 1));
     const weekNumber = Math.ceil((((currentDate - yearStart) / 86400000) + 1) / 7);
     
